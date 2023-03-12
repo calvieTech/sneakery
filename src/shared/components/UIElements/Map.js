@@ -7,10 +7,6 @@ const Map = (props) => {
 
 	const { center, zoom } = props;
 
-	console.log(`\n [DEBUG] mapRef: `, mapRef);
-	console.log(`\n [DEBUG] center: `, center);
-
-	console.log(`\n [DEBUG] zoom: `, zoom);
 	useEffect(() => {
 		const map = new window.google.maps.Map(mapRef.current, {
 			center: center,
@@ -22,7 +18,12 @@ const Map = (props) => {
 		new window.google.maps.Marker({ position: center, map: map });
 	}, [center, zoom]);
 
-	return <div ref={mapRef} className={`map ${props.className}`} style={props.style}></div>;
+	return (
+		<div
+			ref={mapRef}
+			className={`map ${props.className}`}
+			style={props.style}></div>
+	);
 };
 
 export default Map;

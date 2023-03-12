@@ -10,8 +10,8 @@ const SneakerList = (props) => {
 		return (
 			<div className="sneaker-list center">
 				<Card>
-					<h2>No shoes found. Maybe create one?</h2>
-					<Button to="/shoes/new">Share Your Favorite Pair of Kicks!</Button>
+					<h2>No sneakers found. Maybe create one?</h2>
+					<Button to="/sneakers/new">Share Your Favorite Pair of Kicks!</Button>
 				</Card>
 			</div>
 		);

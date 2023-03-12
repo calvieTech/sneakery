@@ -6,7 +6,9 @@ import "./SideDrawer.css";
 
 const SideDrawer = (props) => {
 	const asideContent = (
-		<aside className="side-drawer" onClick={props.onClick}>
+		<aside
+			className="side-drawer"
+			onClick={props.onClick}>
 			{props.children}
 		</aside>
 	);
@@ -16,17 +18,13 @@ const SideDrawer = (props) => {
 				timeout={400}
 				classNames="slide-in-left"
 				appear
-				unmountOnExit
-			>
+				unmountOnExit>
 				{asideContent}
 			</CSSTransition>
 		</TransitionGroup>
 	);
 
-	const drawerHook = createPortal(
-		content,
-		document.getElementById("drawer-hook")
-	);
+	const drawerHook = createPortal(content, document.getElementById("drawer-hook"));
 
 	return <React.Fragment>{drawerHook}</React.Fragment>;
 };

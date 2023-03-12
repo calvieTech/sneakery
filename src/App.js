@@ -8,6 +8,7 @@ import UpdateSneaker from "./sneakers/pages/UpdateSneaker";
 import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
+import NotFound from "./shared/pages/NotFound";
 
 const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,6 +47,7 @@ const App = () => {
 					exact
 					element={<UpdateSneaker />}
 				/>
+				<Route element={<NotFound />} />
 			</>
 		);
 	} else {
@@ -65,6 +67,7 @@ const App = () => {
 					path="/auth"
 					element={<Auth />}
 				/>
+				<Route element={<NotFound />} />
 			</>
 		);
 	}

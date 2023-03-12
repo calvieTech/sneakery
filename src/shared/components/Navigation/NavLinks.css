@@ -7,7 +7,6 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 }
 
 .nav-links li {
@@ -66,18 +65,22 @@
 		text-decoration: none;
 		font-weight: 500;
 		font-size: large;
+		display: flex;
 		border-radius: 25px;
 	}
 
 	.nav-links button {
-		border: 1px solid white;
-		color: white;
+		border: 1px solid #292929;
+		color: #2b95cd;
 		background: transparent;
+		display: inherit;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.nav-links button:hover,
 	.nav-links button:active {
-		background: #2cccb4;
-		color: #2c44cc;
+		background: #32e4ca;
+		color: #2b95cd;
 	}
 }

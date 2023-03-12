@@ -104,7 +104,7 @@ const PlaceSneaker = (props) => {
 							onClick={openMapHandler}>
 							VIEW ON MAP
 						</Button>
-						{auth.userId === props.creatorId && <Button to={`/sneakerss/${props.id}`}>EDIT</Button>}
+						{auth.userId === props.creatorId && <Button to={`/sneakers/${props.id}`}>EDIT</Button>}
 
 						{auth.userId === props.creatorId && (
 							<Button

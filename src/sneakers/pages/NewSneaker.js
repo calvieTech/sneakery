@@ -14,7 +14,7 @@ const NewSneaker = () => {
 	const auth = useContext(AuthContext);
 	const { sendRequest, error, isLoading, clearError } = useHttpClient();
 	const navigate = useNavigate();
-	const url = `http://${window.location.hostname}:3001/api/sneaker`;
+	const url = `http://${window.location.hostname}:3001/api/sneakers`;
 
 	const [formState, inputHandler] = useForm(
 		{
@@ -62,7 +62,7 @@ const NewSneaker = () => {
 				onClear={clearError}
 			/>
 			<form
-				className="place-form"
+				className="sneaker-form"
 				onSubmit={sneakerSubmitHandler}>
 				{isLoading && <LoadingSpinner asOverlay />}
 				<Input

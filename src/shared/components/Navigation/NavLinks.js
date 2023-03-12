@@ -14,22 +14,18 @@ const NavLinks = () => {
 	return (
 		<ul className="nav-links">
 			<li>
-				<NavLink
-					to="/"
-					style={{ display: "flex", alignItems: "center" }}>
+				<NavLink to="/">
 					<GroupIcon fontSize="medium" />
 					&nbsp;ALL USERS
 				</NavLink>
 			</li>
 			{auth.isLoggedIn && (
 				<li>
-					<NavLink
-						to={`${auth.userId}/places`}
-						style={{ display: "flex", alignItems: "center" }}>
+					<NavLink to={`${auth.userId}/sneakers`}>
 						<Icon
 							icon="mdi:shoe-sneaker"
-							width="26"
-							height="26"
+							width="32"
+							height="32"
 							hFlip={true}
 						/>
 						&nbsp;MY SNEAKERS
@@ -38,9 +34,7 @@ const NavLinks = () => {
 			)}
 			{auth.isLoggedIn && (
 				<li>
-					<NavLink
-						to="/places/new"
-						style={{ display: "flex", alignItems: "center" }}>
+					<NavLink to="/sneakers/new">
 						<AddCircleIcon fontSize="medium" />
 						&nbsp;ADD PLACE
 					</NavLink>
@@ -48,9 +42,7 @@ const NavLinks = () => {
 			)}
 			{!auth.isLoggedIn && (
 				<li>
-					<NavLink
-						to="/auth"
-						style={{ display: "flex", alignItems: "center" }}>
+					<NavLink to="/auth">
 						<LoginIcon fontSize="medium" />
 						&nbsp;SIGN-UP
 					</NavLink>
@@ -59,7 +51,7 @@ const NavLinks = () => {
 			{auth.isLoggedIn && (
 				<li>
 					<button onClick={auth.logout}>
-						<LogoutIcon />
+						<LogoutIcon fontSize="medium" />
 						&nbsp;LOGOUT
 					</button>
 				</li>
