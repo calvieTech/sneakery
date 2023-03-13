@@ -3,49 +3,40 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 export const useHttpClient = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
+	// console.log(`\n [DEBUG] http-hook, setIsLoading: `, isLoading);
 
 	let activeHttpRequests = useRef([]);
 
-	let sendRequest = useCallback(
-		async (
-			url,
-			method = "GET",
-			body = null,
-			headers = { "Content-Type": "application/json" },
-			mode = "cors"
-		) => {
-			let resData;
-			const httpAbortCtrl = new AbortController();
-			activeHttpRequests.current.push(httpAbortCtrl);
-			setIsLoading(true);
+	let sendRequest = useCallback(async (url, method = "GET", body = null, headers) => {
+		const httpAbortCtrl = new AbortController();
+		activeHttpRequests.current.push(httpAbortCtrl);
+		setIsLoading(true);
+		let resData;
 
-			try {
-				const res = await fetch(url, {
-					method,
-					body,
-					headers,
-					mode,
-					signal: httpAbortCtrl.signal,
-				});
+		try {
+			const res = await fetch(url, {
+				method,
+				body,
+				headers,
+				signal: httpAbortCtrl.signal,
+			});
 
-				resData = await res.json();
-				activeHttpRequests.current = activeHttpRequests.current.filter(
-					(reqCtrl) => reqCtrl !== httpAbortCtrl
-				);
+			resData = await res.json();
+			activeHttpRequests.current = activeHttpRequests.current.filter(
+				(reqCtrl) => reqCtrl !== httpAbortCtrl
+			);
 
-				if (!res.ok) {
-					throw new Error(resData.message);
-				}
-				setIsLoading(false);
-				return resData;
-			} catch (err) {
-				setError(err.message);
-				setIsLoading(false);
-				throw err;
+			if (!res.ok) {
+				throw new Error(resData.message);
 			}
-		},
-		[]
-	);
+			setIsLoading(false);
+			return resData;
+		} catch (err) {
+			setError(err.message);
+			setIsLoading(false);
+			throw err;
+		}
+	}, []);
 
 	// const sendRequest = useCallback(
 	// 	async (url, method = "GET", body = null, headers = {}, mode = "cors") => {

@@ -21,8 +21,9 @@ const Auth = () => {
 	const auth = useContext(AuthContext);
 	const navigate = useNavigate();
 	const [isLoginMode, setIsLoginMode] = useState(false);
-	const { isLoading, error, sendRequest, clearError } = useHttpClient();
+	const { setIsLoading, isLoading, error, sendRequest, clearError } = useHttpClient();
 
+	// console.log(`frontend isLoading: `, isLoading);
 	const [formState, inputHandler, setFormData] = useForm(
 		{
 			email: {
@@ -68,7 +69,6 @@ const Auth = () => {
 
 	const authSubmitHandler = async (event) => {
 		event.preventDefault();
-		console.log(formState.inputs);
 		const inputs = formState.inputs;
 		let res;
 
@@ -94,16 +94,16 @@ const Auth = () => {
 			}
 		} else {
 			try {
-				res = await sendRequest(
-					url,
-					"POST",
-					JSON.stringify({
-						name: inputs.name.value,
-						email: inputs.email.value,
-						password: inputs.password.value,
-					}),
-					{ "Content-Type": "application/json" }
-				);
+				const formData = new FormData();
+				console.log(`\n [DEBUG] inputs: `, inputs);
+				const { name, email, password } = inputs;
+				formData.append("name", name);
+				formData.append("email", email);
+				formData.append("password", password);
+				// formData.append("image", inputs.image.value);
+				res = await sendRequest(url, "POST", formData, {
+					"Content-Type": "multipart/form-data; charset=utf-8",
+				});
 				auth.login(res.user.id);
 				navigate("/", { replace: true });
 			} catch (err) {
@@ -130,8 +130,8 @@ const Auth = () => {
 							id="name"
 							type="text"
 							label="Your Username"
-							validators={[VALIDATOR_REQUIRE()]}
-							errorText="Please enter a username."
+							validators={[VALIDATOR_MINLENGTH(4)]}
+							errorText="Please enter a username, atleast 4 characters"
 							onInput={inputHandler}
 						/>
 					)}

@@ -47,6 +47,7 @@ const NewSneaker = () => {
 				}),
 				{ "Content-Type": "application/json; charset=utf-8" }
 			);
+			console.log(`\n [DEBUG] error Submit: `, res);
 			// Redirect the user to a different page
 			navigate("/", { replace: true });
 		} catch (err) {
@@ -93,7 +94,7 @@ const NewSneaker = () => {
 				<Button
 					type="submit"
 					disabled={!formState.isValid}>
-					ADD PLACE
+					ADD SNEAKER
 				</Button>
 			</form>
 		</React.Fragment>

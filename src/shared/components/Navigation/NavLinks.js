@@ -36,7 +36,7 @@ const NavLinks = () => {
 				<li>
 					<NavLink to="/sneakers/new">
 						<AddCircleIcon fontSize="medium" />
-						&nbsp;ADD PLACE
+						&nbsp;ADD SNEAKER
 					</NavLink>
 				</li>
 			)}

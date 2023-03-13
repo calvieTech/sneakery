@@ -53,12 +53,12 @@ const PlaceSneaker = (props) => {
 				contentClass="sneakers-item__modal-content"
 				footerClass="sneakers-item__modal-actions"
 				footer={<Button onClick={closeMapHandler}>CLOSE</Button>}>
-				<div className="map-container">
+				{/* <div className="map-container">
 					<Map
 						center={props.coordinates}
 						zoom={16}
 					/>
-				</div>
+				</div> */}
 			</Modal>
 			<Modal
 				show={showConfirmModal}
@@ -95,15 +95,15 @@ const PlaceSneaker = (props) => {
 					</div>
 					<div className="sneakers-item__info">
 						<h2>{props.title}</h2>
-						<h3>{props.address}</h3>
+						{/* <h3>{props.address}</h3> */}
 						<p>{props.description}</p>
 					</div>
 					<div className="sneakers-item__actions">
-						<Button
+						{/* <Button
 							inverse
 							onClick={openMapHandler}>
 							VIEW ON MAP
-						</Button>
+						</Button> */}
 						{auth.userId === props.creatorId && <Button to={`/sneakers/${props.id}`}>EDIT</Button>}
 
 						{auth.userId === props.creatorId && (

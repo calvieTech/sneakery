@@ -1,13 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap");
 
-* {
-	box-sizing: border-box;
-}
-
-html {
-	font-family: "Open Sans", sans-serif;
-}
-
 body {
 	margin: 0;
 	background: #4d4d4d;
@@ -39,4 +31,26 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+@media (min-width: 768px) {
+	* {
+		box-sizing: border-box;
+	}
+
+	html {
+		font-family: "Open Sans", sans-serif;
+	}
+
+	body {
+		margin: 0;
+		background: #4d4d4d;
+	}
+
+	.center {
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 }

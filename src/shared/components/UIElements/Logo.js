@@ -3,7 +3,7 @@ import "./Logo.css";
 
 function Logo() {
 	return (
-		<div>
+		<div className="logo-container">
 			<img
 				src={require("../../../static/sneakery_logo2.png")}
 				className="logo"
