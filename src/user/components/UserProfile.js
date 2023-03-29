@@ -3,20 +3,23 @@ import { Link } from "react-router-dom";
 
 import Avatar from "../../shared/components/UIElements/Avatar";
 import Card from "../../shared/components/UIElements/Card";
-import "./UserSneakers.css";
+import "./UserProfile.css";
 
-const UserSneakers = (props) => {
+const UserProfile = (props) => {
 	return (
-		<li className="user-sneaker">
-			<Card className="user-sneaker__content">
+		<li className="user-profile">
+			<Card className="user-profile__content">
 				<Link to={`/${props.id}/sneakers`}>
-					<div className="user-sneaker__image">
+					<div className="user-profile__image">
 						<Avatar
-							image={props.image}
+							className="avatar"
+							image={props.avatar}
 							alt={props.name}
+							width={68}
+							height={68}
 						/>
 					</div>
-					<div className="user-sneaker__info">
+					<div className="user-profile__info">
 						<h2>{props.name}</h2>
 						<h3>
 							{props.sneakerCount} {props.sneakerCount === 1 ? "Sneaker" : "Sneakers"}
@@ -28,4 +31,4 @@ const UserSneakers = (props) => {
 	);
 };
 
-export default UserSneakers;
+export default UserProfile;

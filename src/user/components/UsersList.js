@@ -1,11 +1,11 @@
 import React from "react";
 
-import UserSneakers from "./UserSneakers";
+import UserProfile from "./UserProfile";
 import Card from "../../shared/components/UIElements/Card";
 import "./UsersList.css";
 
 const UsersList = (props) => {
-	if (props.items.length === 0) {
+	if (props.usersList.length === 0) {
 		return (
 			<div className="center">
 				<Card>
@@ -17,11 +17,11 @@ const UsersList = (props) => {
 
 	return (
 		<ul className="users-list">
-			{props.items.map((user) => (
-				<UserSneakers
+			{props.usersList.map((user) => (
+				<UserProfile
 					key={user.id}
 					id={user.id}
-					image={user.image}
+					avatar={user.avatar}
 					name={user.name}
 					sneakerCount={user.sneakers.length}
 				/>

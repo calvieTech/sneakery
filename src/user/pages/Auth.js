@@ -12,18 +12,18 @@ import {
 import { useForm } from "../../shared/hooks/form-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./Auth.css";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 const Auth = () => {
 	const auth = useContext(AuthContext);
 	const navigate = useNavigate();
 	const [isLoginMode, setIsLoginMode] = useState(false);
-	const { setIsLoading, isLoading, error, sendRequest, clearError } = useHttpClient();
+	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-	// console.log(`frontend isLoading: `, isLoading);
 	const [formState, inputHandler, setFormData] = useForm(
 		{
 			email: {
@@ -46,7 +46,7 @@ const Auth = () => {
 					name: undefined,
 					avatar: undefined,
 				},
-				formState.inputs.email.isValid && formState.inputs.password.isValid
+				formState.inputs?.email?.isValid && formState.inputs?.password?.isValid
 			);
 		} else {
 			await setFormData(
@@ -57,7 +57,7 @@ const Auth = () => {
 						isValid: false,
 					},
 					avatar: {
-						value: null,
+						value: undefined,
 						isValid: false,
 					},
 				},
@@ -71,7 +71,6 @@ const Auth = () => {
 		event.preventDefault();
 		const inputs = formState.inputs;
 		let res;
-
 		let url = isLoginMode
 			? "http://localhost:3001/api/users/login"
 			: "http://localhost:3001/api/users/signup";
@@ -94,20 +93,17 @@ const Auth = () => {
 			}
 		} else {
 			try {
-				const formData = new FormData();
-				console.log(`\n [DEBUG] inputs: `, inputs);
-				const { name, email, password } = inputs;
-				formData.append("name", name);
-				formData.append("email", email);
-				formData.append("password", password);
-				// formData.append("image", inputs.image.value);
-				res = await sendRequest(url, "POST", formData, {
-					"Content-Type": "multipart/form-data; charset=utf-8",
-				});
+				let formData = new FormData();
+				const { avatar, name, email, password } = inputs;
+				formData.append("avatar", avatar.value);
+				formData.append("name", name.value);
+				formData.append("email", email.value);
+				formData.append("password", password.value);
+
+				res = await sendRequest(url, "POST", formData);
 				auth.login(res.user.id);
 				navigate("/", { replace: true });
 			} catch (err) {
-				setIsLoading(false);
 				throw new Error(err.message);
 			}
 		}
@@ -125,22 +121,23 @@ const Auth = () => {
 				<hr />
 				<form onSubmit={authSubmitHandler}>
 					{!isLoginMode && (
-						<Input
-							element="username"
-							id="name"
-							type="text"
-							label="Your Username"
-							validators={[VALIDATOR_MINLENGTH(4)]}
-							errorText="Please enter a username, atleast 4 characters"
-							onInput={inputHandler}
-						/>
-					)}
-					{!isLoginMode && (
-						<ImageUpload
-							id="image"
-							center
-							onInput={inputHandler}
-						/>
+						<div>
+							<Input
+								element="username"
+								id="name"
+								type="text"
+								label="Your Username"
+								validators={[VALIDATOR_MINLENGTH(4)]}
+								errorText="Please enter a username, atleast 4 characters"
+								onInput={inputHandler}
+							/>
+							<ImageUpload
+								id="avatar"
+								name="avatar"
+								center
+								onInput={inputHandler}
+							/>
+						</div>
 					)}
 					<Input
 						element="email"
@@ -160,6 +157,7 @@ const Auth = () => {
 						errorText="Please enter a valid password, at least 6 characters."
 						onInput={inputHandler}
 					/>
+					<br />
 					<Button
 						type="submit"
 						disabled={!formState.isValid}>
