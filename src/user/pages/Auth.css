@@ -14,7 +14,6 @@
 	margin-bottom: 1rem;
 }
 
-.authentication > form > .login__google {
-	display: block;
-	background-color: red;
+.authentication > .login__google {
+	margin: 12px;
 }

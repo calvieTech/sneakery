@@ -12,11 +12,11 @@ import { useForm } from "../../shared/hooks/form-hook";
 import "./SneakerForm.css";
 
 const UpdateSneaker = () => {
-	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const [loadedSneaker, setLoadedSneaker] = useState();
 	const params = useParams();
 	const sneakerId = params.sneakerId;
 	const url = `http://${window.location.hostname}:3001/api/sneakers/${sneakerId}`;
+	const { isLoading, setIsLoading, error, setError, sendRequest, clearError } = useHttpClient();
 	const navigate = useNavigate();
 	const auth = useContext(AuthContext);
 
@@ -36,10 +36,9 @@ const UpdateSneaker = () => {
 
 	useEffect(() => {
 		const fetchSneaker = async () => {
+			let res;
 			try {
-				const res = await sendRequest(url, "GET", null, {
-					"Content-Type": "application/json; charset=utf-8",
-				});
+				res = await sendRequest(url, "GET", null, { "Content-Type": "application/json" });
 				const sneaker = res.sneaker;
 				setLoadedSneaker(sneaker);
 				setFormData(
@@ -73,27 +72,27 @@ const UpdateSneaker = () => {
 					title: formState.inputs.title.value,
 					description: formState.inputs.description.value,
 				}),
-				{
-					"Content-Type": "application/json; charset=utf-8",
-				}
+				{ "Content-Type": "application/json" }
 			);
-		} catch (err) {}
+		} catch (err) {
+			console.log(err.message);
+		}
 		navigate("/" + auth.userId + "/sneakers", { replace: true });
 	};
 
-	// if (isLoading) {
-	// 	return (
-	// 		<div className="center">
-	// 			<LoadingSpinner />
-	// 		</div>
-	// 	);
-	// }
+	if (isLoading) {
+		return (
+			<div className="center">
+				<LoadingSpinner asOverlay />
+			</div>
+		);
+	}
 
 	if (!loadedSneaker && !error) {
 		return (
 			<div className="center">
 				<Card>
-					<h2>Could not find sneaker!</h2>
+					<h2>Could not find any sneaker!</h2>
 				</Card>
 			</div>
 		);
@@ -105,11 +104,6 @@ const UpdateSneaker = () => {
 				error={error}
 				onClear={clearError}
 			/>
-			{isLoading && (
-				<div className="center">
-					<LoadingSpinner asOverlay />
-				</div>
-			)}
 			{!isLoading && loadedSneaker && (
 				<form
 					className="sneaker-form"

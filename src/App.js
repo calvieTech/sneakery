@@ -1,25 +1,29 @@
 import React, { useState, useCallback } from "react";
 import { BrowserRouter as Router, Routes, Route, redirect } from "react-router-dom";
-
 import Users from "./user/pages/Users";
 import NewSneaker from "./sneakers/pages/NewSneaker";
 import UserSneakers from "./sneakers/pages/UserSneakers";
 import UpdateSneaker from "./sneakers/pages/UpdateSneaker";
+import Home from "./user/pages/Home";
 import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import NotFound from "./shared/pages/NotFound";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import UserProfile from "./user/components/UserProfile";
 
 const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [userId, setUserId] = useState(false);
 
 	const login = useCallback((uid) => {
+		console.log(`uid: ${uid}`);
 		setIsLoggedIn(true);
 		setUserId(uid);
 	}, []);
 
 	const logout = useCallback(() => {
+		console.log(`uid logout: ${uid}`);
 		setIsLoggedIn(false);
 		setUserId(null);
 	}, []);
@@ -30,6 +34,12 @@ const App = () => {
 			<>
 				<Route
 					path="/"
+					exact
+					element={<Home />}
+				/>
+				<Route
+					path="/users"
+					exact
 					element={<Users />}
 				/>
 				<Route
@@ -47,7 +57,10 @@ const App = () => {
 					exact
 					element={<UpdateSneaker />}
 				/>
-				<Route element={<NotFound />} />
+				<Route
+					element={<NotFound />}
+					default
+				/>
 			</>
 		);
 	} else {
@@ -56,7 +69,17 @@ const App = () => {
 				<Route
 					path="/"
 					exact
+					element={<Home />}
+				/>
+				<Route
+					path="/users"
+					exact
 					element={<Users />}
+				/>
+				<Route
+					path="/profile"
+					exact
+					element={<UserProfile />}
 				/>
 				<Route
 					path="/:userId/sneakers"
@@ -67,7 +90,10 @@ const App = () => {
 					path="/auth"
 					element={<Auth />}
 				/>
-				<Route element={<NotFound />} />
+				<Route
+					element={<NotFound />}
+					default
+				/>
 			</>
 		);
 	}

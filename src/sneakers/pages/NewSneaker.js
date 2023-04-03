@@ -8,13 +8,14 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import { useHistory, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 
 const NewSneaker = () => {
 	const auth = useContext(AuthContext);
-	const { sendRequest, error, isLoading, clearError } = useHttpClient();
 	const navigate = useNavigate();
 	const url = `http://${window.location.hostname}:3001/api/sneakers`;
+	const { sendRequest, error, isLoading, clearError } = useHttpClient();
 
 	const [formState, inputHandler] = useForm(
 		{
@@ -26,28 +27,27 @@ const NewSneaker = () => {
 				value: "",
 				isValid: false,
 			},
-			// address: {
-			// 	value: "",
-			// 	isValid: false,
-			// },
+			sneakerImg: {
+				value: null,
+				isValid: false,
+			},
 		},
 		false
 	);
 
 	const sneakerSubmitHandler = async (event) => {
 		event.preventDefault();
+		const inputs = formState.inputs;
 		try {
-			const res = await sendRequest(
-				url,
-				"POST",
-				JSON.stringify({
-					title: formState.inputs.title.value,
-					description: formState.inputs.description.value,
-					creator: auth.userId,
-				}),
-				{ "Content-Type": "application/json; charset=utf-8" }
-			);
-			console.log(`\n [DEBUG] error Submit: `, res);
+			const formData = new FormData();
+			const { sneakerImg, title, description } = inputs;
+
+			formData.append("title", title.value);
+			formData.append("description", description.value);
+			formData.append("creator", auth.userId);
+			formData.append("sneakerImg", sneakerImg.value);
+
+			await sendRequest(url, "POST", formData);
 			// Redirect the user to a different page
 			navigate("/", { replace: true });
 		} catch (err) {
@@ -91,6 +91,14 @@ const NewSneaker = () => {
 					errorText="Please enter a valid address."
 					onInput={inputHandler}
 				/> */}
+
+				<ImageUpload
+					className="sneakerImg"
+					id="sneakerImg"
+					name="sneakerImg"
+					onInput={inputHandler}
+					center
+				/>
 				<Button
 					type="submit"
 					disabled={!formState.isValid}>

@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./ImageUpload.css";
 import Button from "./Button";
-import { Avatar } from "@mui/material";
 
 function ImageUpload(props) {
 	const filePickerRef = useRef();
@@ -13,7 +12,6 @@ function ImageUpload(props) {
 		if (!file) {
 			return;
 		}
-
 		const fileReader = new FileReader();
 		fileReader.onload = () => {
 			setPreviewUrl(fileReader.result);
@@ -46,13 +44,14 @@ function ImageUpload(props) {
 				id={props.id}
 				ref={filePickerRef}
 				type="file"
+				name={props.name}
 				style={{ display: "none" }}
 				accept=".png,.jpg,.jpeg"
 				onChange={pickedImageHandler}
 			/>
 			<div className={`image-upload ${props.center && "center"}`}>
 				<div className="image-upload__preview">
-					{!previewUrl && <p>Please upload an avatar image</p>}
+					{!previewUrl && <p>Please upload an image</p>}
 					{previewUrl && (
 						<img
 							src={previewUrl}
@@ -63,7 +62,7 @@ function ImageUpload(props) {
 				<Button
 					type="button"
 					onClick={pickImageHandler}>
-					UPLOAD AVATAR
+					UPLOAD IMAGE
 				</Button>
 			</div>
 			{!isValid && <p>{props.errorText}</p>}

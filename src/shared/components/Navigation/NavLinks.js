@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import GroupIcon from "@mui/icons-material/Group";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { AuthContext } from "../../context/auth-context";
 import { Icon } from "@iconify/react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import CottageIcon from "@mui/icons-material/Cottage";
 import "./NavLinks.css";
 
 const NavLinks = () => {
@@ -15,8 +15,8 @@ const NavLinks = () => {
 		<ul className="nav-links">
 			<li>
 				<NavLink to="/">
-					<GroupIcon fontSize="medium" />
-					&nbsp;ALL USERS
+					<CottageIcon fontSize="medium" />
+					&nbsp;HOME
 				</NavLink>
 			</li>
 			{auth.isLoggedIn && (
@@ -28,7 +28,7 @@ const NavLinks = () => {
 							height="32"
 							hFlip={true}
 						/>
-						&nbsp;MY SNEAKERS
+						&nbsp;MY KICKS
 					</NavLink>
 				</li>
 			)}

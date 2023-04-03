@@ -8,15 +8,16 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const UserSneakers = () => {
 	const [loadedSneakers, setLoadedSneakers] = useState();
-	const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
 	const userId = useParams().userId;
 	const url = `http://${window.location.hostname}:3001/api/sneakers/user/${userId}`;
+	const { isLoading, error, sendRequest, clearError } = useHttpClient();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchSneakers = async (url) => {
+			let responseData;
 			try {
-				const responseData = await sendRequest(url);
+				responseData = await sendRequest(url);
 				setLoadedSneakers(responseData.sneakers);
 			} catch (err) {}
 		};

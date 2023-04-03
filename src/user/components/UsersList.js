@@ -22,7 +22,7 @@ const UsersList = (props) => {
 					key={user.id}
 					id={user.id}
 					avatar={user.avatar}
-					name={user.name}
+					name={user.username}
 					sneakerCount={user.sneakers.length}
 				/>
 			))}

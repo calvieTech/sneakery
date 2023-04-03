@@ -15,7 +15,9 @@ const Users = () => {
 				const responseData = await sendRequest(`http://${window.location.hostname}:3001/api/users`);
 
 				setLoadedUsers(responseData.users);
-			} catch (err) {}
+			} catch (err) {
+				throw new Error(err.message);
+			}
 		};
 		fetchUsers();
 	}, [sendRequest]);

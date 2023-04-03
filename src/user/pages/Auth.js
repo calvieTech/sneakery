@@ -22,6 +22,7 @@ const Auth = () => {
 	const auth = useContext(AuthContext);
 	const navigate = useNavigate();
 	const [isLoginMode, setIsLoginMode] = useState(false);
+	const [user, setUser] = useState(null);
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const [formState, inputHandler, setFormData] = useForm(
@@ -43,7 +44,7 @@ const Auth = () => {
 			await setFormData(
 				{
 					...formState.inputs,
-					name: undefined,
+					username: undefined,
 					avatar: undefined,
 				},
 				formState.inputs?.email?.isValid && formState.inputs?.password?.isValid
@@ -52,7 +53,7 @@ const Auth = () => {
 			await setFormData(
 				{
 					...formState.inputs,
-					name: {
+					username: {
 						value: "",
 						isValid: false,
 					},
@@ -77,14 +78,15 @@ const Auth = () => {
 
 		if (isLoginMode) {
 			try {
+				const { email, password } = inputs;
 				res = await sendRequest(
 					url,
 					"POST",
 					JSON.stringify({
-						email: inputs.email.value,
-						password: inputs.password.value,
+						email: email.value,
+						password: password.value,
 					}),
-					{ "Content-Type": "application/json" }
+					{ "Content-Type": "application/json; charset=utf-8" }
 				);
 				auth.login(res.user.id);
 				navigate("/", { replace: true });
@@ -94,19 +96,32 @@ const Auth = () => {
 		} else {
 			try {
 				let formData = new FormData();
-				const { avatar, name, email, password } = inputs;
+				const { avatar, username, email, password } = inputs;
 				formData.append("avatar", avatar.value);
-				formData.append("name", name.value);
+				formData.append("username", username.value);
 				formData.append("email", email.value);
 				formData.append("password", password.value);
 
 				res = await sendRequest(url, "POST", formData);
-				auth.login(res.user.id);
+				auth.login(res.userId);
 				navigate("/", { replace: true });
 			} catch (err) {
 				throw new Error(err.message);
 			}
 		}
+	};
+
+	const loginWithGoogle = (credentialResponse) => {
+		console.log(credentialResponse);
+		let res;
+
+		try {
+		} catch (err) {
+			throw new Error(err.message);
+		}
+
+		// auth.login(res.clientId);
+		navigate("/", { replace: true });
 	};
 
 	return (
@@ -124,7 +139,7 @@ const Auth = () => {
 						<div>
 							<Input
 								element="username"
-								id="name"
+								id="username"
 								type="text"
 								label="Your Username"
 								validators={[VALIDATOR_MINLENGTH(4)]}
@@ -169,6 +184,12 @@ const Auth = () => {
 					onClick={switchModeHandler}>
 					SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
 				</Button>
+				<div className="login__google">
+					<GoogleLogin
+						onSuccess={loginWithGoogle}
+						text={isLoginMode ? "signin_with" : "signup_with"}
+					/>
+				</div>
 			</Card>
 		</React.Fragment>
 	);
