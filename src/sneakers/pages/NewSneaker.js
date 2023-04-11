@@ -41,13 +41,18 @@ const NewSneaker = () => {
 		try {
 			const formData = new FormData();
 			const { sneakerImg, title, description } = inputs;
+			// console.log(`sneakerImg: `, sneakerImg.value);
+			// console.log(`title: `, title.value);
+			// console.log(`description: `, description.value);
 
 			formData.append("title", title.value);
 			formData.append("description", description.value);
 			formData.append("creator", auth.userId);
 			formData.append("sneakerImg", sneakerImg.value);
 
-			await sendRequest(url, "POST", formData);
+			await sendRequest(url, "POST", formData, {
+				Authorization: "Bearer " + auth.jwt,
+			});
 			// Redirect the user to a different page
 			navigate("/", { replace: true });
 		} catch (err) {
@@ -83,15 +88,6 @@ const NewSneaker = () => {
 					errorText="Please enter a valid description (at least 5 characters)."
 					onInput={inputHandler}
 				/>
-				{/* <Input
-					id="address"
-					element="input"
-					label="Address"
-					validators={[VALIDATOR_REQUIRE()]}
-					errorText="Please enter a valid address."
-					onInput={inputHandler}
-				/> */}
-
 				<ImageUpload
 					className="sneakerImg"
 					id="sneakerImg"

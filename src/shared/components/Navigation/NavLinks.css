@@ -5,8 +5,6 @@
 	width: 100%;
 	height: 100%;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
 }
 
 .nav-links li {
@@ -18,9 +16,7 @@
 	border: 1px solid transparent;
 	color: #fafafa;
 	text-decoration: none;
-	font-weight: 500;
 	padding: 0.5rem;
-	font-weight: 500;
 	font-size: small;
 }
 
@@ -37,8 +33,8 @@
 	border: 1px solid #292929;
 	color: #292929;
 	background: transparent;
-	padding: 0.5rem;
-	font: inherit;
+	display: flex;
+	align-items: center;
 }
 
 .nav-links button:focus {
@@ -57,28 +53,31 @@
 
 @media (min-width: 768px) {
 	.nav-links {
+		display: flex;
 		flex-direction: row;
 	}
 
 	.nav-links li {
-		margin: 0 0.25rem;
+		margin: 0.25rem;
 	}
 
-	.nav-links a {
+	.nav-links li a {
+		display: flex;
 		color: #2b95cd;
 		text-decoration: none;
-		font-weight: 400;
-		font-size: large;
-		display: flex;
-		border-radius: 25px;
+		text-align: center;
+		font-size: medium;
+		margin: 0, 0.25rem;
+	}
+
+	.nav-links li button {
+		font-size: medium;
 	}
 
 	.nav-links button {
-		border: 1px solid #292929;
+		border: 1px solid #2f54eb;
 		background: transparent;
 		display: inherit;
-		justify-content: center;
-		align-items: center;
 	}
 
 	.nav-links button:active {

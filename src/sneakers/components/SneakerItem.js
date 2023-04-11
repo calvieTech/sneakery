@@ -29,7 +29,9 @@ const PlaceSneaker = (props) => {
 	const confirmDeleteHandler = async () => {
 		setShowConfirmModal(false);
 		try {
-			const res = await sendRequest(url, "DELETE");
+			const res = await sendRequest(url, "DELETE", null, {
+				Authorization: "Bearer " + auth.jwt,
+			});
 			props.onDelete(props.id);
 		} catch (err) {
 			console.error(err.message);

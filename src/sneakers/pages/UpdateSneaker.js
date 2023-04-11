@@ -72,7 +72,7 @@ const UpdateSneaker = () => {
 					title: formState.inputs.title.value,
 					description: formState.inputs.description.value,
 				}),
-				{ "Content-Type": "application/json" }
+				{ "Content-Type": "application/json", Authorization: "Bearer " + auth.jwt }
 			);
 		} catch (err) {
 			console.log(err.message);

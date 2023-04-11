@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+// import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 const Auth = () => {
 	const auth = useContext(AuthContext);
@@ -88,8 +88,9 @@ const Auth = () => {
 					}),
 					{ "Content-Type": "application/json; charset=utf-8" }
 				);
-				auth.login(res.user.id);
-				navigate("/", { replace: true });
+				console.log(`res: `, res);
+				auth.login(res.userId, res.jwt);
+				navigate("/");
 			} catch (err) {
 				throw new Error(err.message);
 			}
@@ -103,25 +104,13 @@ const Auth = () => {
 				formData.append("password", password.value);
 
 				res = await sendRequest(url, "POST", formData);
-				auth.login(res.userId);
-				navigate("/", { replace: true });
+				console.log(`res2: `, res);
+				auth.login(res.userId, res.jwt);
+				navigate("/");
 			} catch (err) {
 				throw new Error(err.message);
 			}
 		}
-	};
-
-	const loginWithGoogle = (credentialResponse) => {
-		console.log(credentialResponse);
-		let res;
-
-		try {
-		} catch (err) {
-			throw new Error(err.message);
-		}
-
-		// auth.login(res.clientId);
-		navigate("/", { replace: true });
 	};
 
 	return (
@@ -184,12 +173,6 @@ const Auth = () => {
 					onClick={switchModeHandler}>
 					SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
 				</Button>
-				<div className="login__google">
-					<GoogleLogin
-						onSuccess={loginWithGoogle}
-						text={isLoginMode ? "signin_with" : "signup_with"}
-					/>
-				</div>
 			</Card>
 		</React.Fragment>
 	);

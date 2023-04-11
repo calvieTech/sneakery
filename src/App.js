@@ -13,35 +13,36 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import UserProfile from "./user/components/UserProfile";
 
 const App = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [userId, setUserId] = useState(false);
+	const [token, setToken] = useState(false);
+	const [userId, setUserId] = useState(null);
 
-	const login = useCallback((uid) => {
-		console.log(`uid: ${uid}`);
-		setIsLoggedIn(true);
+	const login = useCallback((uid, token) => {
+		// console.log(`uid login: ${uid}`);
+		setToken(token);
 		setUserId(uid);
 	}, []);
 
 	const logout = useCallback(() => {
-		console.log(`uid logout: ${uid}`);
-		setIsLoggedIn(false);
+		// console.log(`uid logout: ${uid}`);
+		setToken(null);
 		setUserId(null);
 	}, []);
 
 	let routes;
-	if (isLoggedIn) {
+
+	if (token) {
 		routes = (
 			<>
 				<Route
 					path="/"
 					exact
-					element={<Home />}
+					element={<Users />}
 				/>
-				<Route
+				{/* <Route
 					path="/users"
 					exact
 					element={<Users />}
-				/>
+				/> */}
 				<Route
 					path="/:userId/sneakers"
 					exact
@@ -69,11 +70,6 @@ const App = () => {
 				<Route
 					path="/"
 					exact
-					element={<Home />}
-				/>
-				<Route
-					path="/users"
-					exact
 					element={<Users />}
 				/>
 				<Route
@@ -99,9 +95,11 @@ const App = () => {
 	}
 
 	return (
+		// token will be truthy or falsy
 		<AuthContext.Provider
 			value={{
-				isLoggedIn: isLoggedIn,
+				isLoggedIn: !!token,
+				jwt: token,
 				userId: userId,
 				login: login,
 				logout: logout,

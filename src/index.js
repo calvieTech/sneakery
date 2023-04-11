@@ -7,8 +7,8 @@ const root = createRoot(document.getElementById("app"));
 
 root.render(
 	<>
-		<GoogleOAuthProvider clientId={`${process.env.GOOGLE_OAUTH_CLIENTID}`}>
-			<App />
-		</GoogleOAuthProvider>
+		{/* <GoogleOAuthProvider clientId={`${process.env.GOOGLE_OAUTH_CLIENTID}`}> */}
+		<App />
+		{/* </GoogleOAuthProvider> */}
 	</>
 );
