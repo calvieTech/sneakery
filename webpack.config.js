@@ -53,15 +53,6 @@ const config = {
 		}),
 		new Dotenv({ systemvars: true }),
 	],
-	// plugins: [
-	// 	new HtmlWebpackPlugin({
-	// 		templateContent: ({ htmlWebpackPlugin }) =>
-	// 			'<!DOCTYPE html><html><head><meta charset="utf-8"><title>' +
-	// 			htmlWebpackPlugin.options.title +
-	// 			'</title></head><body><div id="app"></div><div id="drawer-hook"></div></body></html>',
-	// 		filename: "index.html",
-	// 	}),
-	// ],
 };
 
 module.exports = config;

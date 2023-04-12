@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, redirect } from "react-router-dom";
 import Users from "./user/pages/Users";
 import NewSneaker from "./sneakers/pages/NewSneaker";
@@ -15,18 +15,52 @@ import UserProfile from "./user/components/UserProfile";
 const App = () => {
 	const [token, setToken] = useState(false);
 	const [userId, setUserId] = useState(null);
+	const [tokenExpireDate, setTokenExpireDate] = useState();
 
-	const login = useCallback((uid, token) => {
-		// console.log(`uid login: ${uid}`);
+	let logoutTimer;
+
+	const login = useCallback((uid, token, tokenExpirationDate) => {
 		setToken(token);
 		setUserId(uid);
+
+		// tokenExpiresIn 1 hour
+		const tokenExpiresIn = tokenExpirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+
+		setTokenExpireDate(tokenExpirationDate);
+
+		localStorage.setItem(
+			"userData",
+			JSON.stringify({ userId: uid, token: token, tokenExpiresIn: tokenExpiresIn.toISOString() })
+		);
 	}, []);
 
 	const logout = useCallback(() => {
-		// console.log(`uid logout: ${uid}`);
 		setToken(null);
 		setUserId(null);
+		setTokenExpireDate(null);
+		localStorage.removeItem("userData");
 	}, []);
+
+	useEffect(() => {
+		const storedUserData = JSON.parse(localStorage.getItem("userData"));
+
+		if (
+			storedUserData &&
+			storedUserData.token &&
+			new Date(storedUserData.tokenExpiresIn > new Date())
+		) {
+			login(storedUserData.userId, storedUserData.token, new Date(storedUserData.tokenExpiresIn));
+		}
+	}, [login]);
+
+	useEffect(() => {
+		if (token && tokenExpireDate) {
+			const remainingTokenTime = tokenExpireDate.getTime() - new Date().getTime();
+			logoutTimer = setTimeout(logout, remainingTokenTime);
+		} else {
+			clearTimeout(logoutTimer);
+		}
+	}, [token, logout, tokenExpireDate]);
 
 	let routes;
 

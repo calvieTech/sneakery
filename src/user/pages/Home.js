@@ -1,7 +1,6 @@
 import React from "react";
 import "./Home.css";
 import LeftNavBar from "../components/LeftNavBar";
-import Layout, { Footer } from "antd/es/layout/layout";
 
 function Home() {
 	return (
