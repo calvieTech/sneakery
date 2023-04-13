@@ -6,7 +6,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const config = {
 	entry: "./src/index.js",
-	mode: "development",
+	mode: "production",
 	output: {
 		path: path.resolve(__dirname, "dist"),
 		filename: "bundle.js",

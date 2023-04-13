@@ -7,8 +7,8 @@
     "start": "webpack serve",
     "build:dev": "webpack build --config webpack.development.config.js",
     "serve:dev": "webpack serve --config webpack.development.config.js",
-    "build:prod": "webpack build --mode webpack.production.config.js",
-    "serve:prod": "webpack serve --mode production",
+    "build:prod": "webpack build --config webpack.production.config.js",
+    "serve:prod": "webpack serve --config webpack.production.config.js",
     "test": "jest"
   },
   "dependencies": {
