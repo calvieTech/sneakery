@@ -13,6 +13,7 @@ const Users = () => {
 		const fetchUsers = async () => {
 			try {
 				const responseData = await sendRequest(`http://${window.location.hostname}:3001/api/users`);
+				console.log(`responseData: `, responseData);
 
 				setLoadedUsers(responseData.users);
 			} catch (err) {

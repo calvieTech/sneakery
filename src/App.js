@@ -9,7 +9,6 @@ import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import NotFound from "./shared/pages/NotFound";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import UserProfile from "./user/components/UserProfile";
 
 const App = () => {

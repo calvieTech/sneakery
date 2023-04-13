@@ -4,11 +4,7 @@ import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
-import {
-	VALIDATOR_EMAIL,
-	VALIDATOR_MINLENGTH,
-	VALIDATOR_REQUIRE,
-} from "../../shared/util/validators";
+import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./Auth.css";
@@ -88,7 +84,6 @@ const Auth = () => {
 					}),
 					{ "Content-Type": "application/json; charset=utf-8" }
 				);
-				console.log(`res: `, res);
 				auth.login(res.userId, res.jwt);
 				navigate("/");
 			} catch (err) {
@@ -104,7 +99,6 @@ const Auth = () => {
 				formData.append("password", password.value);
 
 				res = await sendRequest(url, "POST", formData);
-				console.log(`res2: `, res);
 				auth.login(res.userId, res.jwt);
 				navigate("/");
 			} catch (err) {
