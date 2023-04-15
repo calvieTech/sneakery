@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, redirect } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Users from "./user/pages/Users";
 import NewSneaker from "./sneakers/pages/NewSneaker";
 import UserSneakers from "./sneakers/pages/UserSneakers";
 import UpdateSneaker from "./sneakers/pages/UpdateSneaker";
-import Home from "./user/pages/Home";
+// import Home from "./user/pages/Home";
 import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
@@ -71,11 +71,6 @@ const App = () => {
 					exact
 					element={<Users />}
 				/>
-				{/* <Route
-					path="/users"
-					exact
-					element={<Users />}
-				/> */}
 				<Route
 					path="/:userId/sneakers"
 					exact

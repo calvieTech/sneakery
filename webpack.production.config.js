@@ -3,16 +3,14 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const TerserPlugin = require("terser-webpack-plugin");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { merge } = require("webpack-merge");
 
 const config = {
-	entry: "./src/index.js",
-	mode: "production",
-	output: {
-		path: path.resolve(__dirname, "dist"),
-		filename: "bundle.js",
-		assetModuleFilename: "images/[name][ext]",
-		clean: true,
+	entry: {
+		index: "./src/index.js",
 	},
+	mode: "production",
 	module: {
 		rules: [
 			{
@@ -39,22 +37,39 @@ const config = {
 				],
 				include: /\.module\.css$/i,
 			},
+			{ test: /\.ext$/, use: ["cache-loader", ...loaders], include: path.resolve("src") },
 			{
 				test: /\.(png|svg|jpg|jpeg|gif)/,
 				type: "asset/resource",
 			},
 		],
 	},
-	optimization: {
-		minimize: true,
-		minimizer: [new TerserPlugin()],
-	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: "./public/index.html",
 		}),
+		// new MiniCssExtractPlugin({
+		// 	filename: "[name].css",
+		// }),
 		new Dotenv({ systemvars: true }),
+		new webpack.LoaderOptionsPlugin({
+			minimize: true,
+		}),
 	],
+	optimization: {
+		minimize: true,
+		minimizer: [
+			new TerserPlugin({
+				test: /\.js(\?.*)?$/i,
+			}),
+		],
+	},
+	output: {
+		path: path.resolve(__dirname, "dist"),
+		filename: "[name].bundle.js",
+		assetModuleFilename: "images/[name].[ext]",
+		clean: true,
+	},
 };
 
 module.exports = config;

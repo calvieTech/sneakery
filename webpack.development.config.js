@@ -2,7 +2,6 @@ const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
-const TerserPlugin = require("terser-webpack-plugin");
 
 const config = {
 	entry: "./src/index.js",
