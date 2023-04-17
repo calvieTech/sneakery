@@ -37,7 +37,6 @@ const config = {
 				],
 				include: /\.module\.css$/i,
 			},
-			{ test: /\.ext$/, use: ["cache-loader"], include: path.resolve("src") },
 			{
 				test: /\.(png|svg|jpg|jpeg|gif)/,
 				type: "asset/resource",
@@ -52,9 +51,6 @@ const config = {
 		// 	filename: "[name].css",
 		// }),
 		new Dotenv({ systemvars: true }),
-		new webpack.LoaderOptionsPlugin({
-			minimize: true,
-		}),
 	],
 	optimization: {
 		minimize: true,
