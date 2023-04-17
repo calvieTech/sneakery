@@ -229,8 +229,8 @@ Project Link: [https://github.com/calvieTech/sneakery](https://github.com/calvie
 [digitalocean]: https://img.shields.io/static/v1?style=for-the-badge&message=DigitalOcean&color=0080FF&logo=DigitalOcean&logoColor=FFFFFF&label=
 [do-url]: https://digitalocean.com/
 [login1]: ./gifs/login1.gif
-[register1]: ./gifs/registration1.gif
-[loginandcreate]: ./gifs/loginAndCreate1.gif
-[create1]: ./gifs/create1.gif
-[delete1]: ./gifs/delete1.gif
-[update1]: ./gifs/update1.gif
+[register1]: https://github.com/calvieTech/sneakery/blob/master/gifs/registration1.gif
+[loginandcreate]: https://github.com/calvieTech/sneakery/blob/master/gifs/loginAndCreate1.gif
+[create1]: https://github.com/calvieTech/sneakery/blob/master/gifs/create1.gif
+[delete1]: https://github.com/calvieTech/sneakery/blob/master/gifs/delete1.gif
+[update1]: https://github.com/calvieTech/sneakery/blob/master/gifs/update1.gif
