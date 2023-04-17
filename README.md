@@ -27,7 +27,7 @@
 <h2 align="center">Sneakery: A MERN sneaker app</h2>
   <p align="center">
     <br />
-    <a href="https://github.com/calvieTech/sneakery">View Demo</a>
+    <a href="#demo">View Demo</a>
     ·
     <a href="https://github.com/calvieTech/sneakery/issues">Report Bug</a>
     ·
