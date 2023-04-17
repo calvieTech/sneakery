@@ -37,7 +37,7 @@ const config = {
 				],
 				include: /\.module\.css$/i,
 			},
-			{ test: /\.ext$/, use: ["cache-loader", ...loaders], include: path.resolve("src") },
+			{ test: /\.ext$/, use: ["cache-loader"], include: path.resolve("src") },
 			{
 				test: /\.(png|svg|jpg|jpeg|gif)/,
 				type: "asset/resource",
