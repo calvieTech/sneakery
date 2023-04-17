@@ -12,7 +12,7 @@ import NotFound from "./shared/pages/NotFound";
 import UserProfile from "./user/components/UserProfile";
 
 const App = () => {
-	const [token, setToken] = useState(false);
+	const [token, setToken] = useState("");
 	const [userId, setUserId] = useState(null);
 	const [tokenExpireDate, setTokenExpireDate] = useState();
 
