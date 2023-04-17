@@ -147,10 +147,18 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
+- [x] Create a front-end UI in React
+- [x] Create a back-end API using Node and Express
+  - [x] Create the controllers for users
+  - [x] Create the controllers for sneakers
+- [x] Create MongoDB schemas
+  - [x] Create schema for users
+  - [x] Create schema for sneakers
+- [x] Wire the front-end to the back-end
+  - [x] Front-end should be hitting backend API endpoints
+- [x] Wire the back-end to the MongoDB
+  - [x] MongoDB API key is not visible
+  - [x] Back-end should connect to MongoDB Atlas using API key
 
 See the [open issues](https://github.com/calvieTech/sneakery/issues) for a full list of proposed features (and known issues).
 
