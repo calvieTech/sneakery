@@ -15,7 +15,11 @@ const UpdateSneaker = () => {
 	const [loadedSneaker, setLoadedSneaker] = useState();
 	const params = useParams();
 	const sneakerId = params.sneakerId;
-	const url = `http://${window.location.hostname}:3001/api/sneakers/${sneakerId}`;
+
+	let url =
+		process.env.NODE_ENV === "development"
+			? `http://${window.location.hostname}:3001/api/sneakers/${sneakerId}`
+			: `https://${window.location.hostname}:3001/api/sneakers/${sneakerId}`;
 	const { isLoading, setIsLoading, error, setError, sendRequest, clearError } = useHttpClient();
 	const navigate = useNavigate();
 	const auth = useContext(AuthContext);

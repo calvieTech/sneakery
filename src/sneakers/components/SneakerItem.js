@@ -13,9 +13,13 @@ const { useNavigate } = require("react-router-dom");
 const PlaceSneaker = (props) => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const auth = useContext(AuthContext);
-	const [showMap, setShowMap] = useState(false);
 	const [showConfirmModal, setShowConfirmModal] = useState(false);
-	const url = `http://${window.location.hostname}:3001/api/sneakers/${props.id}`;
+
+	let url =
+		process.env.NODE_ENV === "development"
+			? `http://${window.location.hostname}:3001/api/sneakers/${props.id}`
+			: `https://${window.location.hostname}:3001/api/sneakers/${props.id}`;
+
 	const navigate = useNavigate();
 
 	const showDeleteWarningHandler = () => {

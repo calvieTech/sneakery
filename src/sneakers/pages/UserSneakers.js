@@ -9,7 +9,11 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 const UserSneakers = () => {
 	const [loadedSneakers, setLoadedSneakers] = useState();
 	const userId = useParams().userId;
-	const url = `http://${window.location.hostname}:3001/api/sneakers/user/${userId}`;
+
+	let url =
+		process.env.NODE_ENV === "development"
+			? `http://${window.location.hostname}:3001/api/sneakers/user/${userId}`
+			: `https://${window.location.hostname}:3001/api/sneakers/user/${userId}`;
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const navigate = useNavigate();
 

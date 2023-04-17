@@ -12,8 +12,10 @@ const Users = () => {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const responseData = await sendRequest(`http://${window.location.hostname}:3001/api/users`);
-				console.log(`responseData: `, responseData);
+				let responseData =
+					process.env.NODE_ENV === "development"
+						? await sendRequest(`http://${window.location.hostname}:3001/api/users`)
+						: await sendRequest(`https://${window.location.hostname}:3001/api/users`);
 
 				setLoadedUsers(responseData.users);
 			} catch (err) {

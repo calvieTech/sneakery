@@ -67,13 +67,19 @@ const Auth = () => {
 		event.preventDefault();
 		const inputs = formState.inputs;
 		let res;
-		let url = isLoginMode
-			? "http://localhost:3001/api/users/login"
-			: "http://localhost:3001/api/users/signup";
+		let mode = isLoginMode
+			? "login"
+			: "signup"
+
+		let url =
+			process.env.NODE_ENV === "development"
+				? `http://${window.location.hostname}:3001/api/users/${mode}`
+				: `https://${window.location.hostname}:3001/api/users/${mode}`;
 
 		if (isLoginMode) {
 			try {
 				const { email, password } = inputs;
+
 				res = await sendRequest(
 					url,
 					"POST",

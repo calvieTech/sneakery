@@ -14,7 +14,10 @@ import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 const NewSneaker = () => {
 	const auth = useContext(AuthContext);
 	const navigate = useNavigate();
-	const url = `http://${window.location.hostname}:3001/api/sneakers`;
+	let url =
+		process.env.NODE_ENV === "development"
+			? `http://${window.location.hostname}:3001/api/sneakers`
+			: `https://${window.location.hostname}:3001/api/sneakers`;
 	const { sendRequest, error, isLoading, clearError } = useHttpClient();
 
 	const [formState, inputHandler] = useForm(
