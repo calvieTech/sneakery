@@ -67,9 +67,7 @@ const Auth = () => {
 		event.preventDefault();
 		const inputs = formState.inputs;
 		let res;
-		let mode = isLoginMode
-			? "login"
-			: "signup"
+		let mode = isLoginMode ? "login" : "signup";
 
 		let url =
 			process.env.NODE_ENV === "development"

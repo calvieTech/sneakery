@@ -50,7 +50,6 @@ const NewSneaker = () => {
 
 			formData.append("title", title.value);
 			formData.append("description", description.value);
-			formData.append("creator", auth.userId);
 			formData.append("sneakerImg", sneakerImg.value);
 
 			await sendRequest(url, "POST", formData, {
