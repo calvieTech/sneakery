@@ -159,6 +159,7 @@ Use this space to show useful examples of how a project can be used. Additional 
 - [x] Wire the back-end to the MongoDB
   - [x] MongoDB API key is not visible
   - [x] Back-end should connect to MongoDB Atlas using API key
+- [] Finish front-end production build
 
 See the [open issues](https://github.com/calvieTech/sneakery/issues) for a full list of proposed features (and known issues).
 

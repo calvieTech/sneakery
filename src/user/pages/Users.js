@@ -14,8 +14,8 @@ const Users = () => {
 			try {
 				let responseData =
 					process.env.NODE_ENV === "development"
-						? await sendRequest(`http://${window.location.hostname}:3001/api/users`)
-						: await sendRequest(`https://${window.location.hostname}:3001/api/users`);
+						? await sendRequest(`http://${window.location.hostname}:3001/users`)
+						: await sendRequest(`${SNEAKERY_BACKEND_BASEURL}/users`);
 
 				setLoadedUsers(responseData.users);
 			} catch (err) {
