@@ -17,8 +17,8 @@ const PlaceSneaker = (props) => {
 
 	let url =
 		process.env.NODE_ENV === "development"
-			? `http://${window.location.hostname}:3001/api/sneakers/${props.id}`
-			: `https://${window.location.hostname}:3001/api/sneakers/${props.id}`;
+			? `http://${window.location.hostname}:3001/sneakers/${props.id}`
+			: `${process.env.SNEAKERY_BACKEND_BASE_URL}/sneakers/${props.id}`;
 
 	const navigate = useNavigate();
 
