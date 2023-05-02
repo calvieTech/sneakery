@@ -13,7 +13,7 @@ const UserSneakers = () => {
 	let url =
 		process.env.NODE_ENV === "development"
 			? `http://${window.location.hostname}:3001/api/sneakers/user/${userId}`
-			: `https://${window.location.hostname}:3001/api/sneakers/user/${userId}`;
+			: `${process.env.SNEAKERY_BACKEND_BASE_URL}/sneakers/user/${userId}`;
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const navigate = useNavigate();
 

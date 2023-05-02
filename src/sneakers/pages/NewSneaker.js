@@ -17,7 +17,7 @@ const NewSneaker = () => {
 	let url =
 		process.env.NODE_ENV === "development"
 			? `http://${window.location.hostname}:3001/api/sneakers`
-			: `https://${window.location.hostname}:3001/api/sneakers`;
+			: `${process.env.SNEAKERY_BACKEND_BASE_URL}/sneakers`;
 	const { sendRequest, error, isLoading, clearError } = useHttpClient();
 
 	const [formState, inputHandler] = useForm(
