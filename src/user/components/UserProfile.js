@@ -6,6 +6,12 @@ import Card from "../../shared/components/UIElements/Card";
 import "./UserProfile.css";
 
 const UserProfile = (props) => {
+	let url;
+	if (process.env.NODE_ENV === "development") {
+		url = `http://${window.location.hostname}:3001/sneakers/user/${props.id}`;
+	} else {
+		url = `${SNEAKERY_BACKEND_BASE_URL}/${sneakers}/user/${props.id}`;
+	}
 	return (
 		<li className="user-profile">
 			<Card className="user-profile__content">
