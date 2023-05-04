@@ -1,7 +1,5 @@
-import React from "react";
-import Users from "../pages/Users";
 import "./LeftNavBar.css";
-import GroupIcon from "@mui/icons-material/Group";
+import { GroupIcon } from "@mui/icons-material/Group";
 import { NavLink } from "react-router-dom";
 
 function LeftNavBar() {

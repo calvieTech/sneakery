@@ -4,11 +4,9 @@ import Users from "./user/pages/Users";
 import NewSneaker from "./sneakers/pages/NewSneaker";
 import UserSneakers from "./sneakers/pages/UserSneakers";
 import UpdateSneaker from "./sneakers/pages/UpdateSneaker";
-// import Home from "./user/pages/Home";
 import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
-import NotFound from "./shared/pages/NotFound";
 import UserProfile from "./user/components/UserProfile";
 
 const App = () => {
@@ -86,10 +84,6 @@ const App = () => {
 					exact
 					element={<UpdateSneaker />}
 				/>
-				<Route
-					element={<NotFound />}
-					default
-				/>
 			</>
 		);
 	} else {
@@ -113,10 +107,6 @@ const App = () => {
 				<Route
 					path="/auth"
 					element={<Auth />}
-				/>
-				<Route
-					element={<NotFound />}
-					default
 				/>
 			</>
 		);
