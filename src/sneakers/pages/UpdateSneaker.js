@@ -17,8 +17,8 @@ const UpdateSneaker = () => {
 	const sneakerId = params.sneakerId;
 
 	let url =
-		process.env.NODE_ENV === "development"
-			? `http://${window.location.hostname}:3001/api/sneakers/${sneakerId}`
+		process.env.NODE_ENV !== "development"
+			? `http://${window.location.hostname}:3001/sneakers/${sneakerId}`
 			: `${process.env.SNEAKERY_BACKEND_BASE_URL}/sneakers/${sneakerId}`;
 
 	const { isLoading, setIsLoading, error, setError, sendRequest, clearError } = useHttpClient();

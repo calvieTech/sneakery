@@ -13,7 +13,7 @@ const Users = () => {
 		const fetchUsers = async () => {
 			try {
 				let responseData =
-					process.env.NODE_ENV === "development"
+					process.env.NODE_ENV !== "development"
 						? await sendRequest(`http://${window.location.hostname}:3001/users`)
 						: await sendRequest(`${SNEAKERY_BACKEND_BASEURL}/users`);
 

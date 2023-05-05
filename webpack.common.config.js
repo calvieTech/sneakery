@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const devMode = process.env.NODE_ENV === "development";
+const devMode = process.env.NODE_ENV !== "development";
 
 module.exports = {
 	entry: { bundle: path.resolve(__dirname, "./src/index.js") },
