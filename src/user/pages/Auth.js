@@ -69,7 +69,7 @@ const Auth = () => {
 		let mode = isLoginMode ? "login" : "signup";
 
 		let url =
-			process.env.NODE_ENV !== "development"
+			process.env.NODE_ENV === "development"
 				? `http://${window.location.hostname}:3001/users/${mode}`
 				: `${process.env.SNEAKERY_BACKEND_BASE_URL}/users/${mode}`;
 

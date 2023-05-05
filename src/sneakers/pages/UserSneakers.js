@@ -10,7 +10,7 @@ const UserSneakers = () => {
 	const userId = useParams().userId;
 
 	let url =
-		process.env.NODE_ENV !== "development"
+		process.env.NODE_ENV === "development"
 			? `http://${window.location.hostname}:3001/sneakers/user/${userId}`
 			: `${process.env.SNEAKERY_BACKEND_BASE_URL}/sneakers/user/${userId}`;
 
