@@ -19,7 +19,7 @@ const UpdateSneaker = () => {
 	let url =
 		process.env.NODE_ENV === "development"
 			? `http://${window.location.hostname}:3001/sneakers/${sneakerId}`
-			: `${process.env.SNEAKERY_BACKEND_BASE_URL}/sneakers/${sneakerId}`;
+			: `https://${window.location.hostname}:3001/sneakers/${sneakerId}`;
 
 	const { isLoading, setIsLoading, error, setError, sendRequest, clearError } = useHttpClient();
 	const navigate = useNavigate();
@@ -82,7 +82,7 @@ const UpdateSneaker = () => {
 		} catch (err) {
 			console.log(err.message);
 		}
-		navigate("/" + auth.userId + "/sneakers", { replace: true });
+		navigate(`/sneakery/${auth.userId}/sneakers`);
 	};
 
 	if (isLoading) {

@@ -16,8 +16,8 @@ const NewSneaker = () => {
 	const navigate = useNavigate();
 	let url =
 		process.env.NODE_ENV === "development"
-			? `http://${window.location.hostname}:3001/api/sneakers`
-			: `${process.env.SNEAKERY_BACKEND_BASE_URL}/api/sneakers`;
+			? `http://${window.location.hostname}:3001/sneakers`
+			: `https://${window.location.hostname}:3001/sneakers`;
 	const { sendRequest, error, isLoading, clearError } = useHttpClient();
 
 	const [formState, inputHandler] = useForm(
@@ -44,9 +44,6 @@ const NewSneaker = () => {
 		try {
 			const formData = new FormData();
 			const { sneakerImg, title, description } = inputs;
-			// console.log(`sneakerImg: `, sneakerImg.value);
-			// console.log(`title: `, title.value);
-			// console.log(`description: `, description.value);
 
 			formData.append("title", title.value);
 			formData.append("description", description.value);
@@ -56,7 +53,7 @@ const NewSneaker = () => {
 				Authorization: "Bearer " + auth.jwt,
 			});
 			// Redirect the user to a different page
-			navigate("/", { replace: true });
+			navigate("/sneakery", { replace: true });
 		} catch (err) {
 			console.error(err.message);
 			throw new Error(err);

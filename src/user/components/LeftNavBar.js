@@ -6,7 +6,7 @@ function LeftNavBar() {
 	return (
 		<div className="leftNavBar__container">
 			<NavLink
-				to="/users"
+				to="/sneakery/users"
 				className="leftNavBar__link">
 				<GroupIcon fontSize="medium" />
 				&nbsp;ALL USERS

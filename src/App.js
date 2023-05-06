@@ -8,6 +8,7 @@ import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import UserProfile from "./user/components/UserProfile";
+import Home from "./user/pages/Home";
 
 const App = () => {
 	const [token, setToken] = useState("");
@@ -66,21 +67,25 @@ const App = () => {
 			<>
 				<Route
 					path="/"
-					exact
-					element={<Users />}
+					element={<Home />}
 				/>
 				<Route
-					path="/:userId/sneakers"
+					path="/sneakery"
+					element={<Users />}
+					default
+				/>
+				<Route
+					path="/sneakery/:userId/sneakers"
 					exact
 					element={<UserSneakers />}
 				/>
 				<Route
-					path="/sneakers/new"
+					path="/sneakery/sneakers/new"
 					exact
 					element={<NewSneaker />}
 				/>
 				<Route
-					path="/sneakers/:sneakerId"
+					path="/sneakery/sneakers/:sneakerId"
 					exact
 					element={<UpdateSneaker />}
 				/>
@@ -91,21 +96,26 @@ const App = () => {
 			<>
 				<Route
 					path="/"
-					exact
-					element={<Users />}
+					element={<Home />}
 				/>
 				<Route
-					path="/profile"
+					path="/sneakery"
+					exact
+					element={<Users />}
+					default
+				/>
+				<Route
+					path="/sneakery/profile"
 					exact
 					element={<UserProfile />}
 				/>
 				<Route
-					path="/:userId/sneakers"
+					path="/sneakery/:userId/sneakers"
 					exact
 					element={<UserSneakers />}
 				/>
 				<Route
-					path="/auth"
+					path="/sneakery/auth"
 					element={<Auth />}
 				/>
 			</>

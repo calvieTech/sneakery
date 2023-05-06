@@ -7,7 +7,7 @@ const UserProfile = (props) => {
 	return (
 		<li className="user-profile">
 			<Card className="user-profile__content">
-				<Link to={`/${props.id}/sneakers`}>
+				<Link to={`/sneakery/${props.id}/sneakers`}>
 					<div className="user-profile__image">
 						<Avatar
 							className="avatar"

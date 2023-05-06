@@ -18,7 +18,7 @@ const PlaceSneaker = (props) => {
 	let url =
 		process.env.NODE_ENV === "development"
 			? `http://${window.location.hostname}:3001/sneakers/${props.id}`
-			: `${process.env.SNEAKERY_BACKEND_BASE_URL}/sneakers/${props.id}`;
+			: `https://${window.location.hostname}:3001/sneakers/${props.id}`;
 
 	const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const PlaceSneaker = (props) => {
 			console.error(err.message);
 			throw new Error(err);
 		}
-		navigate("/", { replace: true });
+		navigate("/sneakery", { replace: true });
 	};
 
 	return (
@@ -50,20 +50,6 @@ const PlaceSneaker = (props) => {
 				error={error}
 				onClear={clearError}
 			/>
-			{/* <Modal
-				show={showMap}
-				onCancel={closeMapHandler}
-				header={props.address}
-				contentClass="sneakers-item__modal-content"
-				footerClass="sneakers-item__modal-actions">
-				footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
-				<div className="map-container">
-					<Map
-						center={props.coordinates}
-						zoom={16}
-					/>
-				</div>
-			</Modal> */}
 			<Modal
 				show={showConfirmModal}
 				onCancel={cancelDeleteHandler}
@@ -99,17 +85,13 @@ const PlaceSneaker = (props) => {
 					</div>
 					<div className="sneakers-item__info">
 						<h2>{props.title}</h2>
-						{/* <h3>{props.address}</h3> */}
 						<p>{props.description}</p>
 					</div>
 					<div className="sneakers-item__actions">
-						{/* <Button
-							inverse
-							onClick={openMapHandler}>
-							VIEW ON MAP
-						</Button> */}
-						{<Button to={`/sneakers/${props.id}`}>COMMENT</Button>}
-						{auth.userId === props.creatorId && <Button to={`/sneakers/${props.id}`}>EDIT</Button>}
+						{<Button to={`/sneakery/sneakers/${props.id}`}>COMMENT</Button>}
+						{auth.userId === props.creatorId && (
+							<Button to={`/sneakery/sneakers/${props.id}`}>EDIT</Button>
+						)}
 
 						{auth.userId === props.creatorId && (
 							<Button

@@ -14,14 +14,14 @@ const NavLinks = () => {
 	return (
 		<ul className="nav-links">
 			<li>
-				<NavLink to="/">
+				<NavLink to="/sneakery">
 					<CottageIcon fontSize="small" />
 					&nbsp;HOME
 				</NavLink>
 			</li>
 			{auth.isLoggedIn && (
 				<li>
-					<NavLink to={`${auth.userId}/sneakers`}>
+					<NavLink to={`/sneakery/${auth.userId}/sneakers`}>
 						<AccountCircleIcon fontSize="small" />
 						&nbsp;MY SHOES
 					</NavLink>
@@ -29,7 +29,7 @@ const NavLinks = () => {
 			)}
 			{auth.isLoggedIn && (
 				<li>
-					<NavLink to="/sneakers/new">
+					<NavLink to="/sneakery/sneakers/new">
 						<AddCircleIcon fontSize="small" />
 						&nbsp;ADD SHOES
 					</NavLink>
@@ -37,7 +37,7 @@ const NavLinks = () => {
 			)}
 			{!auth.isLoggedIn && (
 				<li>
-					<NavLink to="/auth">
+					<NavLink to="/sneakery/auth">
 						<LoginIcon fontSize="small" />
 						&nbsp;SIGN-UP
 					</NavLink>

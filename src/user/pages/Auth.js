@@ -71,7 +71,7 @@ const Auth = () => {
 		let url =
 			process.env.NODE_ENV === "development"
 				? `http://${window.location.hostname}:3001/users/${mode}`
-				: `${process.env.SNEAKERY_BACKEND_BASE_URL}/users/${mode}`;
+				: `https://${window.location.hostname}:3001/users/${mode}`;
 
 		if (isLoginMode) {
 			try {
@@ -87,7 +87,7 @@ const Auth = () => {
 					{ "Content-Type": "application/json; charset=utf-8" }
 				);
 				auth.login(res.userId, res.jwt);
-				navigate("/");
+				navigate("/sneakery");
 			} catch (err) {
 				throw new Error(err.message);
 			}
@@ -102,7 +102,7 @@ const Auth = () => {
 
 				res = await sendRequest(url, "POST", formData);
 				auth.login(res.userId, res.jwt);
-				navigate("/");
+				navigate("/sneakery", { replace: true });
 			} catch (err) {
 				throw new Error(err.message);
 			}

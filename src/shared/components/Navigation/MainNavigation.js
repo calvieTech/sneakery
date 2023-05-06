@@ -43,7 +43,7 @@ const MainNavigation = () => {
 					<span />
 				</button>
 				<h1 className="main-navigation__title">
-					<Link to="/">
+					<Link to="/sneakery">
 						<Logo className="main-navigation__title-logo" />
 					</Link>
 				</h1>

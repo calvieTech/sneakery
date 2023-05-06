@@ -12,7 +12,7 @@ const UserSneakers = () => {
 	let url =
 		process.env.NODE_ENV === "development"
 			? `http://${window.location.hostname}:3001/sneakers/user/${userId}`
-			: `${process.env.SNEAKERY_BACKEND_BASE_URL}/sneakers/user/${userId}`;
+			: `https://${window.location.hostname}:3001/sneakers/user/${userId}`;
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const navigate = useNavigate();
@@ -23,9 +23,12 @@ const UserSneakers = () => {
 			try {
 				responseData = await sendRequest(url);
 				setLoadedSneakers(responseData.sneakers);
-			} catch (err) {}
+			} catch (err) {
+				console.error(err.message);
+			}
 		};
 		fetchSneakers(url);
+		navigate(`/sneakery/${userId}/sneakers`);
 	}, [sendRequest, userId, url]);
 
 	const sneakerDeletedHandler = (deletedSneakerId) => {
