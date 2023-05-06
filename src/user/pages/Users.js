@@ -15,7 +15,7 @@ const Users = () => {
 				let responseData =
 					process.env.NODE_ENV === "development"
 						? await sendRequest(`http://${window.location.hostname}:3001/users`)
-						: await sendRequest(`https://${windows.location.hostname}:3001/users`);
+						: await sendRequest(`https://${window.location.hostname}:3001/users`);
 
 				setLoadedUsers(responseData.users);
 			} catch (err) {
