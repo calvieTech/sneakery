@@ -9,16 +9,15 @@ const Users = () => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const [loadedUsers, setLoadedUsers] = useState();
 
+	let url =
+		process.env.NODE_ENV === "development"
+			? `http://${window.location.hostname}:3001/users`
+			: `https://${window.location.hostname}:3001/users`;
+
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				let responseData =
-					process.env.NODE_ENV === "development"
-						? await sendRequest(`http://${window.location.hostname}:3001/users`)
-						: await sendRequest(
-								`https://${window.location.hostname}:3001/users`
-						  );
-
+				let responseData = await sendRequest(url);
 				setLoadedUsers(responseData.users);
 			} catch (err) {
 				throw new Error(err.message);
