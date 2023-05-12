@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
-import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../shared/util/validators";
+import {
+	VALIDATOR_REQUIRE,
+	VALIDATOR_MINLENGTH,
+} from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import "./SneakerForm.css";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -16,8 +19,8 @@ const NewSneaker = () => {
 	const navigate = useNavigate();
 	let url =
 		process.env.NODE_ENV === "development"
-			? `http://${window.location.hostname}:3001/sneakers`
-			: `https://${window.location.hostname}:3001/sneakers`;
+			? `http://${window.location.hostname}:3001/user_sneakers/new_sneaker`
+			: `https://${window.location.hostname}:3001/user_sneakers/new_sneaker`;
 	const { sendRequest, error, isLoading, clearError } = useHttpClient();
 
 	const [formState, inputHandler] = useForm(
@@ -53,7 +56,7 @@ const NewSneaker = () => {
 				Authorization: "Bearer " + auth.jwt,
 			});
 			// Redirect the user to a different page
-			navigate("/sneakery", { replace: true });
+			navigate("/sneakery_home", { replace: true });
 		} catch (err) {
 			console.error(err.message);
 			throw new Error(err);

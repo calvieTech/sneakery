@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, redirect } from "react-router-dom";
 import SneakerList from "../components/SneakerList";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import NotFound from "../../shared/pages/NotFound";
 
 const UserSneakers = () => {
 	const [loadedSneakers, setLoadedSneakers] = useState();
@@ -11,24 +12,27 @@ const UserSneakers = () => {
 
 	let url =
 		process.env.NODE_ENV === "development"
-			? `http://${window.location.hostname}:3001/sneakers/user/${userId}`
-			: `https://${window.location.hostname}:3001/sneakers/user/${userId}`;
+			? `http://${window.location.hostname}:3001/user_sneakers/user/${userId}`
+			: `https://${window.location.hostname}:3001/user_sneakers/user/${userId}`;
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchSneakers = async (url) => {
 			let responseData;
 			try {
 				responseData = await sendRequest(url);
+				if (!responseData) {
+					console.log("/sneakery_404");
+					redirect("/sneakery_404");
+				}
 				setLoadedSneakers(responseData.sneakers);
 			} catch (err) {
 				console.error(err.message);
+				throw new Error(err.message);
 			}
 		};
 		fetchSneakers(url);
-		navigate(`/sneakery/${userId}/sneakers`);
 	}, [sendRequest, userId, url]);
 
 	const sneakerDeletedHandler = (deletedSneakerId) => {
@@ -55,6 +59,7 @@ const UserSneakers = () => {
 					onDeleteSneaker={sneakerDeletedHandler}
 				/>
 			)}
+			{!isLoading && !loadedSneakers && <NotFound />}
 		</React.Fragment>
 	);
 };

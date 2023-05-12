@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Users from "./user/pages/Users";
 import NewSneaker from "./sneakers/pages/NewSneaker";
@@ -7,58 +7,13 @@ import UpdateSneaker from "./sneakers/pages/UpdateSneaker";
 import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
-import UserProfile from "./user/components/UserProfile";
 import Home from "./user/pages/Home";
+import { useAuth } from "./shared/hooks/auth-hook";
+import SneakerList from "./sneakers/components/SneakerList";
+import NotFound from "./shared/pages/NotFound";
 
 const App = () => {
-	const [token, setToken] = useState("");
-	const [userId, setUserId] = useState(null);
-	const [tokenExpireDate, setTokenExpireDate] = useState();
-
-	let logoutTimer;
-
-	const login = useCallback((uid, token, tokenExpirationDate) => {
-		setToken(token);
-		setUserId(uid);
-
-		// tokenExpiresIn 1 hour
-		const tokenExpiresIn = tokenExpirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
-
-		setTokenExpireDate(tokenExpirationDate);
-
-		localStorage.setItem(
-			"userData",
-			JSON.stringify({ userId: uid, token: token, tokenExpiresIn: tokenExpiresIn.toISOString() })
-		);
-	}, []);
-
-	const logout = useCallback(() => {
-		setToken(null);
-		setUserId(null);
-		setTokenExpireDate(null);
-		localStorage.removeItem("userData");
-	}, []);
-
-	useEffect(() => {
-		const storedUserData = JSON.parse(localStorage.getItem("userData"));
-
-		if (
-			storedUserData &&
-			storedUserData.token &&
-			new Date(storedUserData.tokenExpiresIn > new Date())
-		) {
-			login(storedUserData.userId, storedUserData.token, new Date(storedUserData.tokenExpiresIn));
-		}
-	}, [login]);
-
-	useEffect(() => {
-		if (token && tokenExpireDate) {
-			const remainingTokenTime = tokenExpireDate.getTime() - new Date().getTime();
-			logoutTimer = setTimeout(logout, remainingTokenTime);
-		} else {
-			clearTimeout(logoutTimer);
-		}
-	}, [token, logout, tokenExpireDate]);
+	const { token, login, logout, userId } = useAuth();
 
 	let routes;
 
@@ -66,28 +21,33 @@ const App = () => {
 		routes = (
 			<>
 				<Route
-					path="/"
+					default
+					path="/sneakery_home"
 					element={<Home />}
 				/>
 				<Route
-					path="/sneakery"
+					path="/sneakery_users"
 					element={<Users />}
-					default
 				/>
 				<Route
-					path="/sneakery/:userId/sneakers"
+					path="/sneakery_user/:userId/sneakers"
 					exact
 					element={<UserSneakers />}
 				/>
 				<Route
-					path="/sneakery/sneakers/new"
+					path="/sneakery_new"
 					exact
 					element={<NewSneaker />}
 				/>
 				<Route
-					path="/sneakery/sneakers/:sneakerId"
+					path="/sneakery_update/:sneakerId"
 					exact
 					element={<UpdateSneaker />}
+				/>
+				<Route
+					path="/sneakery_404"
+					exact
+					element={<NotFound />}
 				/>
 			</>
 		);
@@ -95,28 +55,28 @@ const App = () => {
 		routes = (
 			<>
 				<Route
-					path="/"
+					path="/sneakery_home"
 					element={<Home />}
-				/>
-				<Route
-					path="/sneakery"
-					exact
-					element={<Users />}
 					default
 				/>
 				<Route
-					path="/sneakery/profile"
+					path="/sneakery_users"
 					exact
-					element={<UserProfile />}
+					element={<Users />}
 				/>
 				<Route
-					path="/sneakery/:userId/sneakers"
+					path="/sneakery_user/:userId/sneakers"
 					exact
 					element={<UserSneakers />}
 				/>
 				<Route
-					path="/sneakery/auth"
+					path="/sneakery_auth"
 					element={<Auth />}
+				/>
+				<Route
+					path="/sneakery_404"
+					exact
+					element={<NotFound />}
 				/>
 			</>
 		);

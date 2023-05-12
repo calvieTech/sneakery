@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap");
 
+/*
+* CuriousBlue: #2B95CD
+* Picton Blue: #32A5E4
+* DairyCream: #FAD8B9
+* Black: #040404
+* TobbacoBrown: #6B5949
+* Yellow: #ffc857
+*/
+
 body {
 	background: #a5a5a5;
 	overflow-x: hidden;
@@ -34,7 +43,7 @@ body {
 	align-items: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
 	* {
 		box-sizing: border-box;
 	}

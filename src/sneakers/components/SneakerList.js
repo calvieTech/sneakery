@@ -11,7 +11,7 @@ const SneakerList = (props) => {
 			<div className="sneaker-list center">
 				<Card>
 					<h2>No sneakers found. Maybe create one?</h2>
-					<Button to="/sneakery/sneakers/new">Share Your Favorite Pair of Kicks!</Button>
+					<Button to="/sneakery_new">Share Your Favorite Pair of Kicks!</Button>
 				</Card>
 			</div>
 		);

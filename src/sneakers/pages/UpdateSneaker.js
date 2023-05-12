@@ -7,7 +7,10 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UIElements/Card";
-import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../shared/util/validators";
+import {
+	VALIDATOR_REQUIRE,
+	VALIDATOR_MINLENGTH,
+} from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import "./SneakerForm.css";
 
@@ -18,10 +21,10 @@ const UpdateSneaker = () => {
 
 	let url =
 		process.env.NODE_ENV === "development"
-			? `http://${window.location.hostname}:3001/sneakers/${sneakerId}`
-			: `https://${window.location.hostname}:3001/sneakers/${sneakerId}`;
+			? `http://${window.location.hostname}:3001/user_sneakers/${sneakerId}`
+			: `https://${window.location.hostname}:3001/user_sneakers/${sneakerId}`;
 
-	const { isLoading, setIsLoading, error, setError, sendRequest, clearError } = useHttpClient();
+	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const navigate = useNavigate();
 	const auth = useContext(AuthContext);
 
@@ -43,7 +46,9 @@ const UpdateSneaker = () => {
 		const fetchSneaker = async () => {
 			let res;
 			try {
-				res = await sendRequest(url, "GET", null, { "Content-Type": "application/json" });
+				res = await sendRequest(url, "GET", null, {
+					"Content-Type": "application/json",
+				});
 				const sneaker = res.sneaker;
 				setLoadedSneaker(sneaker);
 				setFormData(
@@ -77,12 +82,15 @@ const UpdateSneaker = () => {
 					title: formState.inputs.title.value,
 					description: formState.inputs.description.value,
 				}),
-				{ "Content-Type": "application/json", Authorization: "Bearer " + auth.jwt }
+				{
+					"Content-Type": "application/json",
+					Authorization: "Bearer " + auth.jwt,
+				}
 			);
 		} catch (err) {
 			console.log(err.message);
 		}
-		navigate(`/sneakery/${auth.userId}/sneakers`);
+		navigate(`/sneakery_user/${auth.userId}/sneakers`, { replace: true });
 	};
 
 	if (isLoading) {

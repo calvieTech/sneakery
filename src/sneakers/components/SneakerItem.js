@@ -10,15 +10,15 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import "./SneakerItem.css";
 const { useNavigate } = require("react-router-dom");
 
-const PlaceSneaker = (props) => {
+const SneakerItem = (props) => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const auth = useContext(AuthContext);
 	const [showConfirmModal, setShowConfirmModal] = useState(false);
 
 	let url =
 		process.env.NODE_ENV === "development"
-			? `http://${window.location.hostname}:3001/sneakers/${props.id}`
-			: `https://${window.location.hostname}:3001/sneakers/${props.id}`;
+			? `http://${window.location.hostname}:3001/user_sneakers/${props.id}`
+			: `https://${window.location.hostname}:3001/user_sneakers/${props.id}`;
 
 	const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const PlaceSneaker = (props) => {
 	const confirmDeleteHandler = async () => {
 		setShowConfirmModal(false);
 		try {
-			const res = await sendRequest(url, "DELETE", null, {
+			await sendRequest(url, "DELETE", null, {
 				Authorization: "Bearer " + auth.jwt,
 			});
 			props.onDelete(props.id);
@@ -41,7 +41,7 @@ const PlaceSneaker = (props) => {
 			console.error(err.message);
 			throw new Error(err);
 		}
-		navigate("/sneakery", { replace: true });
+		navigate(`/sneakery_user/${props.id}/sneakers`, { replace: true });
 	};
 
 	return (
@@ -70,8 +70,8 @@ const PlaceSneaker = (props) => {
 					</React.Fragment>
 				}>
 				<p>
-					Do you want to proceed and delete this sneakers? Please note that it can't be undone
-					thereafter.
+					Do you want to proceed and delete this sneakers? Please note that it
+					can't be undone thereafter.
 				</p>
 			</Modal>
 			<li className="sneakers-item">
@@ -88,9 +88,9 @@ const PlaceSneaker = (props) => {
 						<p>{props.description}</p>
 					</div>
 					<div className="sneakers-item__actions">
-						{<Button to={`/sneakery/sneakers/${props.id}`}>COMMENT</Button>}
+						{<Button to={`/sneakery_comment/${props.id}`}>COMMENT</Button>}
 						{auth.userId === props.creatorId && (
-							<Button to={`/sneakery/sneakers/${props.id}`}>EDIT</Button>
+							<Button to={`/sneakery_update/${props.id}`}>EDIT</Button>
 						)}
 
 						{auth.userId === props.creatorId && (
@@ -107,4 +107,4 @@ const PlaceSneaker = (props) => {
 	);
 };
 
-export default PlaceSneaker;
+export default SneakerItem;

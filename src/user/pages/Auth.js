@@ -3,7 +3,10 @@ import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
-import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from "../../shared/util/validators";
+import {
+	VALIDATOR_EMAIL,
+	VALIDATOR_MINLENGTH,
+} from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./Auth.css";
@@ -16,7 +19,6 @@ const Auth = () => {
 	const auth = useContext(AuthContext);
 	const navigate = useNavigate();
 	const [isLoginMode, setIsLoginMode] = useState(false);
-	const [user, setUser] = useState(null);
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const [formState, inputHandler, setFormData] = useForm(
@@ -87,22 +89,26 @@ const Auth = () => {
 					{ "Content-Type": "application/json; charset=utf-8" }
 				);
 				auth.login(res.userId, res.jwt);
-				navigate("/sneakery");
+				navigate("/sneakery_home", { replace: true });
 			} catch (err) {
 				throw new Error(err.message);
 			}
 		} else {
 			try {
 				let formData = new FormData();
-				const { avatar, username, email, password } = inputs;
-				formData.append("avatar", avatar.value);
+				let avatar;
+				const { username, email, password } = inputs;
+				if (inputs?.avatar) {
+					avatar = inputs.avatar;
+					formData.append("avatar", avatar.value);
+				}
 				formData.append("username", username.value);
 				formData.append("email", email.value);
 				formData.append("password", password.value);
 
 				res = await sendRequest(url, "POST", formData);
 				auth.login(res.userId, res.jwt);
-				navigate("/sneakery", { replace: true });
+				navigate("/sneakery_users", { replace: true });
 			} catch (err) {
 				throw new Error(err.message);
 			}
@@ -117,7 +123,11 @@ const Auth = () => {
 			/>
 			<Card className="authentication">
 				{isLoading && <LoadingSpinner asOverlay />}
-				{isLoginMode ? <h2>Login Required</h2> : <h2> Registration Required</h2>}
+				{isLoginMode ? (
+					<h2>Login Required</h2>
+				) : (
+					<h2> Registration Required</h2>
+				)}
 				<hr />
 				<form onSubmit={authSubmitHandler}>
 					{!isLoginMode && (

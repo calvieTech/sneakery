@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/auth-context";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CottageIcon from "@mui/icons-material/Cottage";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PeopleIcon from "@mui/icons-material/People";
 import "./NavLinks.css";
 
 const NavLinks = () => {
@@ -14,14 +15,20 @@ const NavLinks = () => {
 	return (
 		<ul className="nav-links">
 			<li>
-				<NavLink to="/sneakery">
+				<NavLink to="/sneakery_home">
 					<CottageIcon fontSize="small" />
 					&nbsp;HOME
 				</NavLink>
 			</li>
+			<li>
+				<NavLink to="/sneakery_users">
+					<PeopleIcon fontSize="small" />
+					&nbsp;USERS
+				</NavLink>
+			</li>
 			{auth.isLoggedIn && (
 				<li>
-					<NavLink to={`/sneakery/${auth.userId}/sneakers`}>
+					<NavLink to={`/sneakery_user/${auth.userId}/sneakers`}>
 						<AccountCircleIcon fontSize="small" />
 						&nbsp;MY SHOES
 					</NavLink>
@@ -29,7 +36,7 @@ const NavLinks = () => {
 			)}
 			{auth.isLoggedIn && (
 				<li>
-					<NavLink to="/sneakery/sneakers/new">
+					<NavLink to="/sneakery_new">
 						<AddCircleIcon fontSize="small" />
 						&nbsp;ADD SHOES
 					</NavLink>
@@ -37,7 +44,7 @@ const NavLinks = () => {
 			)}
 			{!auth.isLoggedIn && (
 				<li>
-					<NavLink to="/sneakery/auth">
+					<NavLink to="/sneakery_auth">
 						<LoginIcon fontSize="small" />
 						&nbsp;SIGN-UP
 					</NavLink>
