@@ -12,6 +12,7 @@
     "serve:prod": "webpack serve --config webpack.production.config.js"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.7.0",

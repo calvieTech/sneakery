@@ -89,7 +89,7 @@ const Auth = () => {
 					{ "Content-Type": "application/json; charset=utf-8" }
 				);
 				auth.login(res.userId, res.jwt);
-				navigate("/sneakery_home", { replace: true });
+				navigate("/sneakery_users", { replace: true });
 			} catch (err) {
 				throw new Error(err.message);
 			}

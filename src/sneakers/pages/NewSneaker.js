@@ -56,7 +56,7 @@ const NewSneaker = () => {
 				Authorization: "Bearer " + auth.jwt,
 			});
 			// Redirect the user to a different page
-			navigate("/sneakery_home", { replace: true });
+			navigate("/sneakery_users", { replace: true });
 		} catch (err) {
 			console.error(err.message);
 			throw new Error(err);
